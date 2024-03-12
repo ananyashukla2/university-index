@@ -1,6 +1,7 @@
 <html>
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
     
     <script src="https://unpkg.com/vue-select@latest"></script>
     <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
@@ -24,7 +25,7 @@
             <tr>
                 <td class="right-aligned">Select a country: </td>
                 <td>
-                    <v-select v-model="countrySelected" :options="countries" @input="fetchUniversities(); universitySelected=null"></v-select>
+                    <v-select v-model="countrySelected" :options="countries" v-on:input="fetchUniversities(); universitySelected=null"></v-select>
                 </td>
             </tr>
 
@@ -36,7 +37,7 @@
             </tr>
 
             <tr>
-                <td class="right-aligned">Domains: </td>
+                <td class="right-aligned" v-bind:class="{ 'multiple-entries' : ( universitySelected != null && universitySelected.domains.length > 1) }">Domains: </td>
                 <td v-if="universitySelected != null">
                     <span v-for="domain in universitySelected.domains">
                         {{ domain }} <br />
@@ -45,7 +46,7 @@
             </tr>
 
             <tr>
-                <td class="right-aligned">Web pages: </td>
+                <td class="right-aligned" v-bind:class="{ 'multiple-entries' : ( universitySelected != null && universitySelected.web_pages.length > 1) }">Web pages: </td>
                 <td v-if="universitySelected!=null">
                     <span v-for="webpage in universitySelected.web_pages">
                         <a v-bind:href="webpage" target="_blank"> {{ webpage }} <br /> </a>
